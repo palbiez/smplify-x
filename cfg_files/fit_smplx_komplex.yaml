@@ -1,15 +1,12 @@
 dataset: 'openpose'
-joints_to_ign:
-    - 1
-    - 9
-    - 12
-data_folder: "C:/Users/firew/Documents/python_scripts/openpose_pipeline/dataset"
-output_folder: "C:/Users/firew/Documents/python_scripts/openpose_pipeline/dataset/smplx"
+joints_to_ign: [-1]
+data_folder: "C:/Users/firew/Documents/python_scripts/openpose_pipeline/dataset/poses_complex"
+output_folder: "C:/Users/firew/Documents/python_scripts/openpose_pipeline/dataset/poses_complex/smplx"
 prior_folder: "C:/Users/firew/Documents/python_scripts/openpose_pipeline/dataset/vposer"
 model_folder: "C:/Users/firew/Documents/python_scripts/openpose_pipeline/dataset/"
 result_folder: 'results'
 gender: "neutral"
-model_type: 'smpl'
+model_type: 'smplx'
 # Flag for using the GPU
 use_cuda: True
 float_dtype: "float32"
@@ -23,6 +20,7 @@ num_gaussians: 8
 body_prior_type: 'l2'
 left_hand_prior_type: l2
 right_hand_prior_type: l2
+jaw_prior_type: 'l2'
 focal_length: 5000
 num_pca_comps: 6
 # The constant for the robust loss function
@@ -41,20 +39,17 @@ gtol: 1e-9
 lr: 1.0
 # Max number of optimization iterations
 maxiters: 30
-interactive: True
+interactive: False
 visualize: False
-
-data_weights:
-    - 1.0
-    - 1.0
-    - 1.0
-    - 1.0
+# Relative change in loss value
 body_pose_prior_weights:
     - 4.04e2
     - 4.04e2
     - 57.4e0
     - 4.78e0
+    - 4.78e0
 coll_loss_weights:
+    - 0.0
     - 0.0
     - 0.0
     - 0.01
@@ -64,5 +59,42 @@ shape_weights:
     - 5.0e1
     - 1.0e1
     - 0.5e1
-use_vposer: True
+    - 0.5e1
+expr_weights:
+    - 1.0e2
+    - 5.0e1
+    - 1.0e1
+    - 0.5e1
+    - 0.5e1
+hand_pose_prior_weights:
+    - 4.04e2
+    - 4.04e2
+    - 57.4
+    - 4.78
+    - 4.78
+jaw_pose_prior_weights:
+    # First phase
+    - 4.04e03,4.04e04,4.04e04
+    # Second phase
+    - 4.04e03,4.04e04,4.04e04
+    # Third phase
+    - 574,5740,5740
+    # Fourth phase
+    - 47.8,478,478
+    # Fifth phase
+    - 47.8,478,478
+hand_joints_weights:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.1
+    - 2.0
+face_joints_weights:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 2.0
+
+use_vposer: False
 vposer_ckpt: "C:/Users/firew/Documents/python_scripts/openpose_pipeline/dataset/vposer"
